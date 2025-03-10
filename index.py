@@ -74,4 +74,14 @@ async def on_ready():
     except Exception as e:
         print(f"Erreur de synchronisation : {e}")
 
+@bot.command()
+async def remaining(interaction: discord.Interaction):
+    try:
+        synced = await bot.tree.sync()
+        remain = await  translator.get_usage()
+        await interaction.response.send_message(f"Tu as dit : {remain}")
+    except Exception as e:
+        await interaction.response.send_message(f"An Error occured : {str(e)}.\nPlease contact <@&584680265134243854>")
+
+
 bot.run(TOKEN)
