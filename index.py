@@ -23,7 +23,7 @@ translator = deepl.Translator(DEEPL_API_KEY)
 
 flag_to_lang = {
     "🇫🇷": "FR", "🇬🇧": "EN-GB", "🇺🇸": "EN-US", "🇩🇪": "DE", "🇪🇸": "ES",
-    "🇮🇹": "IT", "🇵🇹": "PT", "🇳🇱": "NL", "🇷🇺": "RU", "🇯🇵": "JA",
+    "🇮🇹": "IT", "🇵🇹": "PT-PT", "🇳🇱": "NL", "🇷🇺": "RU", "🇯🇵": "JA",
     "🇰🇷": "KO", "🇨🇳": "ZH", "🇮🇳": "HI", "🇹🇷": "TR"
 }
 
@@ -65,6 +65,17 @@ async def on_reaction_add(reaction, user):
         except Exception as e:
             await message.channel.send(f"⚠️ Erreur de traduction : {str(e)}")
 
+@bot.tree.command(name="remaining", description="Envoie le nombre d'utilisation de l'API Deepl restante.")
+@app_commands.describe()
+async def remaining(interaction: discord.Interaction):
+    try:
+        remain = translator.get_usage()
+        remaining = (str(remain).split(" "))[4]
+        max = (str(remain).split(" "))[6]
+        await interaction.response.send_message(f"Il reste : {int(max)-int(remaining)} caractère a pouvoir traduire")
+    except Exception as e:
+        await interaction.response.send_message(f"An Error occured : {str(e)}.\nPlease contact <@584680265134243854>")
+
 @bot.event
 async def on_ready():
     try:
@@ -74,14 +85,7 @@ async def on_ready():
     except Exception as e:
         print(f"Erreur de synchronisation : {e}")
 
-@bot.command()
-async def remaining(interaction: discord.Interaction):
-    try:
-        synced = await bot.tree.sync()
-        remain = await  translator.get_usage()
-        await interaction.response.send_message(f"Tu as dit : {remain}")
-    except Exception as e:
-        await interaction.response.send_message(f"An Error occured : {str(e)}.\nPlease contact <@&584680265134243854>")
+
 
 
 bot.run(TOKEN)
