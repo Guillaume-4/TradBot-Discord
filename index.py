@@ -6,7 +6,7 @@ from discord import app_commands
 import deepl
 import dotenv
 
-dotenv.load_dotenv("./.venv/.env")
+dotenv.load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 DEEPL_API_KEY = os.getenv("DEEPL_TOKEN")
 
@@ -22,7 +22,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 translator = deepl.Translator(DEEPL_API_KEY)
 
 flag_to_lang = {
-    "🇫🇷": "FR", "🇬🇧": "EN", "🇺🇸": "EN", "🇩🇪": "DE", "🇪🇸": "ES",
+    "🇫🇷": "FR", "🇬🇧": "EN-GB", "🇺🇸": "EN-US", "🇩🇪": "DE", "🇪🇸": "ES",
     "🇮🇹": "IT", "🇵🇹": "PT", "🇳🇱": "NL", "🇷🇺": "RU", "🇯🇵": "JA",
     "🇰🇷": "KO", "🇨🇳": "ZH", "🇮🇳": "HI", "🇹🇷": "TR"
 }
