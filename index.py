@@ -61,9 +61,9 @@ async def on_reaction_add(reaction, user):
         try:
             translated_text = translator.translate_text(original_text, target_lang=target_lang).text
 
-            await message.channel.send(f"🔹 **Traduction ({emoji}) :** {translated_text}")
+            await message.channel.reply(f"🔹 **Traduction ({emoji}) :** {translated_text}")
         except Exception as e:
-            await message.channel.send(f"⚠️ Erreur de traduction : {str(e)}")
+            await message.channel.reply(f"⚠️ Erreur de traduction : {str(e)}")
 
 @bot.tree.command(name="remaining", description="Envoie le nombre d'utilisation de l'API Deepl restante.")
 @app_commands.describe()
